@@ -1,3 +1,33 @@
+## Version 1.4.0
+
+Added: Automated releases and CI/CD pipeline improvements<br>
+Added: Static analysis tools (cppcheck and uncrustify)<br>
+Added: CMake modern configuration with improved installation paths<br>
+Added: DrawMap sample<br>
+Fixed: Memory safety improvements and buffer overflow prevention<br>
+Fixed: Enhanced audio system with better codec handling and ADPCM decoding<br>
+Fixed: Refactored Save/Load dialog, OSK, VirtualFile, and input handling<br>
+Fixed: Improved shape drawing, message box, and UI rendering<br>
+Fixed: Better documentation and code structure across multiple modules<br>
+Fixed: PNG loading and SFont handling with improved memory management<br>
+Updated: Uncrustify code formatting<br>
+Updated: Enhanced shapes sample with C++ support and fixed texturing<br>
+
+## Version 1.3.0
+
+Added: Comprehensive documentation for all modules (Audio, Browser, Dialog, Keys, Map, Net, OSK, Text, SFont, SaveLoad, VFPU, USB, VirtualFile, vram_mgr, and more)<br>
+Added: Doxygen documentation generation in CI/CD pipeline<br>
+Updated: Doxygen to 1.12.0 (from 1.8.7)<br>
+Updated: CODE_OF_CONDUCT.md and issue templates<br>
+Fixed: Refactored and improved image manipulation functions (oslDrawImage, oslDrawImageBig, oslMoveImageTo, oslScaleImageCreate, oslSetImagePixel, oslResetImageProperties)<br>
+Fixed: Enhanced swizzle/unswizzle functions for better performance<br>
+Fixed: Improved oslGetImagePixel and oslSetDrawBuffer functions<br>
+Fixed: Better image conversion and palette search functions<br>
+Fixed: Refactored oslLoadImageFile and oslWriteImageFile for better safety<br>
+Fixed: Improved oslLoadImageFileJPG and GIF loading code<br>
+Fixed: Enhanced drawing functions with better documentation and code formatting<br>
+Fixed: Removed old references to modv2 and dead files<br>
+
 ## Version 1.2.0
 
 Updated: intraFont to latest version with bug fixes, performance improvements, and new features<br>
