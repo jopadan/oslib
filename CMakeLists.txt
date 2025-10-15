@@ -217,11 +217,11 @@ endif()
 # Add Uncrustify execution
 find_program(UNCRUSTIFY uncrustify)
 if(UNCRUSTIFY)
-    set(UNCRUSTIFY_COMMAND ${UNCRUSTIFY} -c ${CMAKE_SOURCE_DIR}/uncrustify.cfg --no-backup)
     add_custom_target(
         uncrustify
-        COMMAND ${UNCRUSTIFY_COMMAND} --replace ${CMAKE_SOURCE_DIR}/src/*.c ${CMAKE_SOURCE_DIR}/src/*.h
-        COMMENT "Running Uncrustify to format the code without creating backups..."
+        COMMAND ${CMAKE_SOURCE_DIR}/run-uncrustify.sh
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        COMMENT "Running Uncrustify to format the code (respecting .uncrustifyignore)..."
     )
 else()
     message(WARNING "Uncrustify not found, skipping code formatting.")

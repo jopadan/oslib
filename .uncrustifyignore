@@ -1,6 +1,6 @@
 lib/giflib/
-src/intraFont/
-src/libpspmath/
+lib/libintraFont/
+lib/libpspmath/
 src/png.h
 src/pngconf.h
 src/pnglibconf.h
