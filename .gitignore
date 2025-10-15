@@ -16,7 +16,8 @@ samples/**/*.SFO
 
 # Ignore documentation directory
 doc/html
-src/libpspmath/*.a
+lib/libpspmath/*.a
+lib/libintraFont/*.a
 
 # Ignore release artifacts
 dist/

@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 
 # Load the PSP platform configuration
-set(CMAKE_SYSTEM_CMAKE_PLATFORM_PATH "${CMAKE_SOURCE_DIR}/cmake")
+set(CMAKE_SYSTEM_CMAKE_PLATFORM_PATH "${CMAKE_BINARY_DIR}/cmake")
 include(${CMAKE_SYSTEM_CMAKE_PLATFORM_PATH}/PSP.cmake)
 
 # Set the output library
@@ -19,66 +19,66 @@ add_library(${TARGET_LIB} STATIC)
 
 # Specify the output directory for the .a file (project root directory)
 set_target_properties(${TARGET_LIB} PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}"
+	ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
 
 # Include directories
 include_directories(
-    src
-    INTERFACE PUBLIC_HEADER $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/lib/libintraFont/include>
-    src/libpspmath
-    src/adhoc
+    INTERFACE PUBLIC_HEADER  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/lib/libintraFont/include>
+    INTERFACE PUBLIC_HEADER  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/lib/libpspmath/include>
     INTERFACE PRIVATE_HEADER $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/lib/giflib>
+    src
+    src/adhoc
 )
 
 # Define the source files
 set(SOURCE_DIR src)
 set(SFONT_SOURCES ${SOURCE_DIR}/sfont.c)
 set(PSPMATH_SOURCES
-    ${SOURCE_DIR}/libpspmath/printMatrixFloat.c
-    ${SOURCE_DIR}/libpspmath/vfpu_srand.c
-    ${SOURCE_DIR}/libpspmath/vfpu_randf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_rand_8888.c
-    ${SOURCE_DIR}/libpspmath/vfpu_identity_matrix.c
-    ${SOURCE_DIR}/libpspmath/vfpu_translate_matrix.c
-    ${SOURCE_DIR}/libpspmath/vfpu_perspective_matrix.c
-    ${SOURCE_DIR}/libpspmath/vfpu_ortho_matrix.c
-    ${SOURCE_DIR}/libpspmath/vfpu_sinf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_cosf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_tanf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_asinf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_acosf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_atanf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_sinhf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_coshf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_tanhf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_sincos.c
-    ${SOURCE_DIR}/libpspmath/vfpu_expf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_logf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_fabsf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_sqrtf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_powf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_fmodf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_fminf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_fmaxf.c
-    ${SOURCE_DIR}/libpspmath/vfpu_ease_in_out.c
-    ${SOURCE_DIR}/libpspmath/vfpu_normalize_vector.c
-    ${SOURCE_DIR}/libpspmath/vfpu_zero_vector.c
-    ${SOURCE_DIR}/libpspmath/vfpu_scale_vector.c
-    ${SOURCE_DIR}/libpspmath/vfpu_add_vector.c
-    ${SOURCE_DIR}/libpspmath/vfpu_envmap_matrix.c
-    ${SOURCE_DIR}/libpspmath/vfpu_sphere_to_cartesian.c
-    ${SOURCE_DIR}/libpspmath/vfpu_quaternion_identity.c
-    ${SOURCE_DIR}/libpspmath/vfpu_quaternion_copy.c
-    ${SOURCE_DIR}/libpspmath/vfpu_quaternion_multiply.c
-    ${SOURCE_DIR}/libpspmath/vfpu_quaternion_normalize.c
-    ${SOURCE_DIR}/libpspmath/vfpu_quaternion_exp.c
-    ${SOURCE_DIR}/libpspmath/vfpu_quaternion_ln.c
-    ${SOURCE_DIR}/libpspmath/vfpu_quaternion_sample_linear.c
-    ${SOURCE_DIR}/libpspmath/vfpu_quaternion_from_euler.c
-    ${SOURCE_DIR}/libpspmath/vfpu_quaternion_to_matrix.c
-    ${SOURCE_DIR}/libpspmath/vfpu_quaternion_sample_hermite.c
-    ${SOURCE_DIR}/libpspmath/vfpu_quaternion_hermite_tangent.c
+    lib/libpspmath/src/printMatrixFloat.c
+    lib/libpspmath/src/vfpu_srand.c
+    lib/libpspmath/src/vfpu_randf.c
+    lib/libpspmath/src/vfpu_rand_8888.c
+    lib/libpspmath/src/vfpu_identity_matrix.c
+    lib/libpspmath/src/vfpu_translate_matrix.c
+    lib/libpspmath/src/vfpu_perspective_matrix.c
+    lib/libpspmath/src/vfpu_ortho_matrix.c
+    lib/libpspmath/src/vfpu_sinf.c
+    lib/libpspmath/src/vfpu_cosf.c
+    lib/libpspmath/src/vfpu_tanf.c
+    lib/libpspmath/src/vfpu_asinf.c
+    lib/libpspmath/src/vfpu_acosf.c
+    lib/libpspmath/src/vfpu_atanf.c
+    lib/libpspmath/src/vfpu_sinhf.c
+    lib/libpspmath/src/vfpu_coshf.c
+    lib/libpspmath/src/vfpu_tanhf.c
+    lib/libpspmath/src/vfpu_sincos.c
+    lib/libpspmath/src/vfpu_expf.c
+    lib/libpspmath/src/vfpu_logf.c
+    lib/libpspmath/src/vfpu_fabsf.c
+    lib/libpspmath/src/vfpu_sqrtf.c
+    lib/libpspmath/src/vfpu_powf.c
+    lib/libpspmath/src/vfpu_fmodf.c
+    lib/libpspmath/src/vfpu_fminf.c
+    lib/libpspmath/src/vfpu_fmaxf.c
+    lib/libpspmath/src/vfpu_ease_in_out.c
+    lib/libpspmath/src/vfpu_normalize_vector.c
+    lib/libpspmath/src/vfpu_zero_vector.c
+    lib/libpspmath/src/vfpu_scale_vector.c
+    lib/libpspmath/src/vfpu_add_vector.c
+    lib/libpspmath/src/vfpu_envmap_matrix.c
+    lib/libpspmath/src/vfpu_sphere_to_cartesian.c
+    lib/libpspmath/src/vfpu_quaternion_identity.c
+    lib/libpspmath/src/vfpu_quaternion_copy.c
+    lib/libpspmath/src/vfpu_quaternion_multiply.c
+    lib/libpspmath/src/vfpu_quaternion_normalize.c
+    lib/libpspmath/src/vfpu_quaternion_exp.c
+    lib/libpspmath/src/vfpu_quaternion_ln.c
+    lib/libpspmath/src/vfpu_quaternion_sample_linear.c
+    lib/libpspmath/src/vfpu_quaternion_from_euler.c
+    lib/libpspmath/src/vfpu_quaternion_to_matrix.c
+    lib/libpspmath/src/vfpu_quaternion_sample_hermite.c
+    lib/libpspmath/src/vfpu_quaternion_hermite_tangent.c
 )
 
 set(LIB_SOURCES
@@ -147,10 +147,10 @@ install(TARGETS ${TARGET_LIB} DESTINATION ${PSPDIR}/lib)
 
 # Include directories installation (headers)
 install(FILES lib/libintraFont/include/intraFont.h lib/libintraFont/include/libccc.h
-    DESTINATION ${PSPDIR}/include/oslib/intraFont)
+	DESTINATION ${PSPDIR}/include/oslib)
 
-install(FILES ${SOURCE_DIR}/libpspmath/pspmath.h
-    DESTINATION ${PSPDIR}/include/oslib/libpspmath)
+install(FILES lib/libpspmath/include/pspmath.h
+	DESTINATION ${PSPDIR}/include/oslib)
 
 install(FILES ${SOURCE_DIR}/adhoc/pspadhoc.h
     DESTINATION ${PSPDIR}/include/oslib/adhoc)

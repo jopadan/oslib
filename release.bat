@@ -24,9 +24,9 @@ echo "xcopying lib...."
 xcopy libosl.a %TARGET%\Install
 
 echo "xcopying header files...."
-xcopy %SOURCE_DIR%\intraFont\intraFont.h %TARGET%\Install\oslib\intraFont\
-xcopy %SOURCE_DIR%\intraFont\libccc.h %TARGET%\Install\oslib\intraFont\
-xcopy %SOURCE_DIR%\libpspmath\pspmath.h %TARGET%\Install\oslib\libpspmath\
+xcopy lib\libintraFont\include\intraFont.h %TARGET%\Install\oslib\intraFont\
+xcopy lib\libintraFont\include\libccc.h %TARGET%\Install\oslib\intraFont\
+xcopy lib\libpspmath\include\pspmath.h %TARGET%\Install\oslib\libpspmath\
 xcopy %SOURCE_DIR%\adhoc\pspadhoc.h %TARGET%\Install\oslib\adhoc\
 xcopy %SOURCE_DIR%\oslmath.h %TARGET%\Install\oslib\
 xcopy %SOURCE_DIR%\net.h %TARGET%\Install\oslib\

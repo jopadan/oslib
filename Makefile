@@ -30,50 +30,50 @@ SOURCE_DIR := src
 
 SFONTOBJS :=                $(SOURCE_DIR)/sfont.o
 
-PSPMATHOBJS := 	            $(SOURCE_DIR)/libpspmath/printMatrixFloat.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_srand.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_randf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_rand_8888.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_identity_matrix.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_translate_matrix.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_perspective_matrix.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_ortho_matrix.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_sinf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_cosf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_tanf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_asinf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_acosf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_atanf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_sinhf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_coshf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_tanhf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_sincos.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_expf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_logf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_fabsf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_sqrtf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_powf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_fmodf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_fminf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_fmaxf.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_ease_in_out.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_normalize_vector.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_zero_vector.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_scale_vector.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_add_vector.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_envmap_matrix.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_sphere_to_cartesian.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_quaternion_identity.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_quaternion_copy.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_quaternion_multiply.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_quaternion_normalize.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_quaternion_exp.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_quaternion_ln.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_quaternion_sample_linear.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_quaternion_from_euler.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_quaternion_to_matrix.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_quaternion_sample_hermite.o \
-                            $(SOURCE_DIR)/libpspmath/vfpu_quaternion_hermite_tangent.o
+PSPMATHOBJS := 	            $(LIB_DIR)/libpspmath/src/printMatrixFloat.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_srand.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_randf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_rand_8888.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_identity_matrix.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_translate_matrix.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_perspective_matrix.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_ortho_matrix.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_sinf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_cosf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_tanf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_asinf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_acosf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_atanf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_sinhf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_coshf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_tanhf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_sincos.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_expf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_logf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_fabsf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_sqrtf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_powf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_fmodf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_fminf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_fmaxf.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_ease_in_out.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_normalize_vector.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_zero_vector.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_scale_vector.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_add_vector.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_envmap_matrix.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_sphere_to_cartesian.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_quaternion_identity.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_quaternion_copy.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_quaternion_multiply.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_quaternion_normalize.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_quaternion_exp.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_quaternion_ln.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_quaternion_sample_linear.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_quaternion_from_euler.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_quaternion_to_matrix.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_quaternion_sample_hermite.o \
+                            $(LIB_DIR)/libpspmath/src/vfpu_quaternion_hermite_tangent.o
 
 LIBOBJS :=					$(SFONTOBJS) \
 							$(PSPMATHOBJS) \
@@ -137,7 +137,7 @@ OBJS :=						$(LIBOBJS)
 #	-------------------
 
 INCDIR   :=					$(INCDIR) \
-							$(SOURCE_DIR) $(LIB_DIR)/libintraFont/include $(LIB_DIR)/giflib
+							$(SOURCE_DIR) $(LIB_DIR)/libintraFont/include $(LIB_DIR)/giflib $(LIB_DIR)/libpspmath/include
 
 #----------------------------------------------------------------------------
 #	Addditional libraries
@@ -216,12 +216,11 @@ $(STATICLIB): $(LIBOBJS)
 install: lib
 	install -d $(DESTDIR)$(PSPDIR)/lib
 	install -m644 $(TARGET_LIB) $(DESTDIR)$(PSPDIR)/lib
-	install -d $(DESTDIR)$(PSPDIR)/include/oslib/intraFont/
-	install -d $(DESTDIR)$(PSPDIR)/include/oslib/libpspmath/
+	install -d $(DESTDIR)$(PSPDIR)/include/oslib/
 	install -d $(DESTDIR)$(PSPDIR)/include/oslib/adhoc/
-	install -m644 $(LIB_DIR)/libintraFont/include/intraFont.h $(DESTDIR)$(PSPDIR)/include/oslib/intraFont/
-	install -m644 $(LIB_DIR)/libintraFont/include/libccc.h $(DESTDIR)$(PSPDIR)/include/oslib/intraFont/
-	install -m644 $(SOURCE_DIR)/libpspmath/pspmath.h $(DESTDIR)$(PSPDIR)/include/oslib/libpspmath/
+	install -m644 $(LIB_DIR)/libintraFont/include/intraFont.h $(DESTDIR)$(PSPDIR)/include/oslib/
+	install -m644 $(LIB_DIR)/libintraFont/include/libccc.h $(DESTDIR)$(PSPDIR)/include/oslib/
+	install -m644 $(LIB_DIR)/libpspmath/include/pspmath.h $(DESTDIR)$(PSPDIR)/include/oslib/
 	install -m644 $(SOURCE_DIR)/adhoc/pspadhoc.h $(DESTDIR)$(PSPDIR)/include/oslib/adhoc/
 	install -m644 $(SOURCE_DIR)/oslmath.h $(DESTDIR)$(PSPDIR)/include/oslib/
 	install -m644 $(SOURCE_DIR)/net.h $(DESTDIR)$(PSPDIR)/include/oslib/

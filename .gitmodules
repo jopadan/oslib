@@ -4,3 +4,6 @@
 [submodule "lib/libintraFont"]
 	path = lib/libintraFont
 	url = https://github.com/pspdev/libintraFont
+[submodule "lib/libpspmath"]
+	path = lib/libpspmath
+	url = https://github.com/mrneo240/libpspmath
