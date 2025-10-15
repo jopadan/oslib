@@ -2,6 +2,7 @@
 *.o
 *.so
 *.lib
+
 # Ignore build directory
 build
 
@@ -16,6 +17,8 @@ samples/**/*.SFO
 
 # Ignore documentation directory
 doc/html
+
+# Ignore submodule libraries
 lib/libpspmath/*.a
 lib/libintraFont/*.a
 
