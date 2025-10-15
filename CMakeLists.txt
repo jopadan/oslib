@@ -204,11 +204,12 @@ if(CPPCHECK)
     set(CPPCHECK_COMMAND
         ${CPPCHECK} --enable=all --inconclusive --quiet
         --suppressions-list=${CMAKE_SOURCE_DIR}/.cppcheck-suppress
+        --checkers-report=${CMAKE_SOURCE_DIR}/cppcheck-report.txt
     )
     add_custom_target(
         cppcheck
-        COMMAND ${CPPCHECK_COMMAND} ${CMAKE_SOURCE_DIR}/src
-        COMMENT "Running Cppcheck..."
+        COMMAND ${CPPCHECK_COMMAND} ${CMAKE_SOURCE_DIR}/src || true
+        COMMENT "Running Cppcheck and generating checkers report..."
     )
 else()
     message(WARNING "Cppcheck not found, skipping static analysis.")

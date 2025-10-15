@@ -31,3 +31,6 @@ install_manifest.txt
 cmake_install.cmake
 CMakeFiles/
 CMakeCache.txt
+
+# cppcheck output
+cppcheck-report.txt

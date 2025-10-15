@@ -3,8 +3,8 @@
 
 # Third-party libraries that we don't modify
 *:lib/giflib/*
-*:src/intraFont/*
-*:src/libpspmath/*
+*:lib/libintraFont/*
+*:lib/libpspmath/*
 
 # Third-party headers (PNG, zlib, etc.)
 *:src/png.h
