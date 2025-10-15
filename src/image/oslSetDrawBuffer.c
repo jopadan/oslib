@@ -1,11 +1,11 @@
 #include "oslib.h"
 
 /*
-	This function is particularly slow on Windows. Without auxiliary buffers, it performs the following operations:
-	1. Saves the content of the current draw buffer to the associated image.
-	2. Handles special cases for OSL_DEFAULT/OSL_SECONDARY_BUFFER.
-	3. Writes the content of the new draw buffer to the GPU.
-*/
+        This function is particularly slow on Windows. Without auxiliary buffers, it performs the following operations:
+        1. Saves the content of the current draw buffer to the associated image.
+        2. Handles special cases for OSL_DEFAULT/OSL_SECONDARY_BUFFER.
+        3. Writes the content of the new draw buffer to the GPU.
+ */
 void oslSetDrawBuffer(OSL_IMAGE *img) {
 #ifdef PSP
 	// Set the current draw buffer on the PSP
@@ -22,7 +22,7 @@ void oslSetDrawBuffer(OSL_IMAGE *img) {
 	// If the current or new buffer is not a special buffer, read the backbuffer data into the current image.
 	if ((osl_curBuf != OSL_SECONDARY_BUFFER && osl_curBuf != OSL_DEFAULT_BUFFER) ||
 	    (img != OSL_DEFAULT_BUFFER && img != OSL_SECONDARY_BUFFER)) {
-		emuGlReadPixels(0, 272 - osl_curBuf->sizeY, osl_curBuf->sysSizeX, osl_curBuf->sizeY, GL_RGBA, 
+		emuGlReadPixels(0, 272 - osl_curBuf->sizeY, osl_curBuf->sysSizeX, osl_curBuf->sizeY, GL_RGBA,
 		                osl_curBuf->pixelFormat, osl_curBuf->data);
 	}
 

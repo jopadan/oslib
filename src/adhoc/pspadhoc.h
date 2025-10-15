@@ -2,7 +2,7 @@
  * @file pspadhoc.h
  * @brief Header file for AdHoc functions and structures.
  *
- * This file contains the declarations and definitions for AdHoc functionalities, 
+ * This file contains the declarations and definitions for AdHoc functionalities,
  * including error codes, connection states, and remote PSP management.
  */
 
@@ -48,13 +48,13 @@
  * @brief Connection states for remote PSPs.
  */
 enum remotePspState {
-    OSL_ADHOC_DISCONNECTED = 0, ///< PSP Disconnected.
-    OSL_ADHOC_JOINED,            ///< PSP Joined.
-    OSL_ADHOC_SELECTED,          ///< PSP selected.
-    OSL_ADHOC_REJECTED,          ///< Connection rejected.
-    OSL_ADHOC_CANCELED,          ///< Connection canceled.
-    OSL_ADHOC_ACCEPTED,          ///< Connection accepted.
-    OSL_ADHOC_ESTABLISHED        ///< Connection established.
+	OSL_ADHOC_DISCONNECTED = 0, ///< PSP Disconnected.
+	OSL_ADHOC_JOINED,        ///< PSP Joined.
+	OSL_ADHOC_SELECTED,      ///< PSP selected.
+	OSL_ADHOC_REJECTED,      ///< Connection rejected.
+	OSL_ADHOC_CANCELED,      ///< Connection canceled.
+	OSL_ADHOC_ACCEPTED,      ///< Connection accepted.
+	OSL_ADHOC_ESTABLISHED    ///< Connection established.
 };
 
 /**
@@ -62,9 +62,9 @@ enum remotePspState {
  */
 struct remotePsp
 {
-    u8 macAddress[8];            ///< MAC address of the PSP.
-    char name[257];              ///< Nickname of the PSP.
-    int connectionState;         ///< Connection state (see remotePspState).
+	u8 macAddress[8];        ///< MAC address of the PSP.
+	char name[257];          ///< Nickname of the PSP.
+	int connectionState;     ///< Connection state (see remotePspState).
 };
 
 /**

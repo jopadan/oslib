@@ -6,7 +6,7 @@
 
 /*
     Logo data (PNG image format)
-*/
+ */
 const unsigned long __osl_logo_texte_data[] = {
 	0x474e5089, 0x0a1a0a0d, 0x0d000000, 0x52444849, 0xe0010000, 0x10010000, 0x00000208, 0x3024e700,
 	0x0b0000db, 0x414449c2, 0xedda7854, 0x1b6fbfdd, 0xf1c00365, 0x02fe2bf3, 0x6c132e8a, 0x0b03d80c,
@@ -120,267 +120,267 @@ const unsigned long __osl_logo_etoile_data[] = {
 
 /*
     Shifts the red value to the alpha channel to create transparency based on the text.
-*/
+ */
 static void shiftLogoPixels(OSL_IMAGE *img) {
-    unsigned long *data = (unsigned long *)img->data;
-    for (int i = 0; i < (img->totalSize >> 2); i++) {
-        *data = (*data) << 24;
-        data++;
-    }
-    oslUncacheImageData(img);
+	unsigned long *data = (unsigned long *)img->data;
+	for (int i = 0; i < (img->totalSize >> 2); i++) {
+		*data = (*data) << 24;
+		data++;
+	}
+	oslUncacheImageData(img);
 }
 
 /*
     Creates a background image for the logo.
-*/
+ */
 static OSL_IMAGE *createLogoBackgroundImage() {
-    OSL_IMAGE *background;
-    unsigned char *data;
+	OSL_IMAGE *background;
+	unsigned char *data;
 
-    background = oslCreateImage(WIDTH, HEIGHT, OSL_IN_RAM, OSL_PF_8BIT);
-    if (!background)
-        return NULL;
+	background = oslCreateImage(WIDTH, HEIGHT, OSL_IN_RAM, OSL_PF_8BIT);
+	if (!background)
+		return NULL;
 
-    background->palette = oslCreatePalette(256, OSL_PF_8888);
-    if (!background->palette) {
-        oslDeleteImage(background);
-        return NULL;
-    }
+	background->palette = oslCreatePalette(256, OSL_PF_8888);
+	if (!background->palette) {
+		oslDeleteImage(background);
+		return NULL;
+	}
 
-    for (int j = 0; j < HEIGHT; j++) {
-        data = (unsigned char *)oslGetImageLine(background, j);
-        for (int i = 0; i < WIDTH / 2; i++) {
-            *data++ = i;
-            *data++ = i;
-        }
-    }
+	for (int j = 0; j < HEIGHT; j++) {
+		data = (unsigned char *)oslGetImageLine(background, j);
+		for (int i = 0; i < WIDTH / 2; i++) {
+			*data++ = i;
+			*data++ = i;
+		}
+	}
 
-    oslUncacheImage(background);
-    return background;
+	oslUncacheImage(background);
+	return background;
 }
 
 /*
     Creates a rotating color palette for the logo.
-*/
+ */
 static void createRotatingPalette(OSL_IMAGE *img, int angle) {
-    unsigned long *palette = (unsigned long *)img->palette->data;
-    int colorValue;
+	unsigned long *palette = (unsigned long *)img->palette->data;
+	int colorValue;
 
-    for (int i = 0; i < 239; i++) {
-        angle = angle % (256 * 6);
-        if (angle < 0) angle += 256 * 6;
-        colorValue = angle & 255;
+	for (int i = 0; i < 239; i++) {
+		angle = angle % (256 * 6);
+		if (angle < 0) angle += 256 * 6;
+		colorValue = angle & 255;
 
-        if (angle < 256)
-            *palette++ = RGBA(255, colorValue, 0, 0xff);          // Red -> Yellow
-        else if (angle < 256 * 2)
-            *palette++ = RGBA(255 - colorValue, 255, 0, 0xff);     // Yellow -> Green
-        else if (angle < 256 * 3)
-            *palette++ = RGBA(0, 255, colorValue, 0xff);           // Green -> Turquoise
-        else if (angle < 256 * 4)
-            *palette++ = RGBA(0, 255 - colorValue, 255, 0xff);     // Turquoise -> Blue
-        else if (angle < 256 * 5)
-            *palette++ = RGBA(colorValue, 0, 255, 0xff);           // Blue -> Pink
-        else
-            *palette++ = RGBA(255, 0, 255 - colorValue, 0xff);     // Pink -> Red
+		if (angle < 256)
+			*palette++ = RGBA(255, colorValue, 0, 0xff); // Red -> Yellow
+		else if (angle < 256 * 2)
+			*palette++ = RGBA(255 - colorValue, 255, 0, 0xff); // Yellow -> Green
+		else if (angle < 256 * 3)
+			*palette++ = RGBA(0, 255, colorValue, 0xff); // Green -> Turquoise
+		else if (angle < 256 * 4)
+			*palette++ = RGBA(0, 255 - colorValue, 255, 0xff); // Turquoise -> Blue
+		else if (angle < 256 * 5)
+			*palette++ = RGBA(colorValue, 0, 255, 0xff); // Blue -> Pink
+		else
+			*palette++ = RGBA(255, 0, 255 - colorValue, 0xff); // Pink -> Red
 
-        angle += 8;
-    }
+		angle += 8;
+	}
 
-    oslUncachePalette(img->palette);
+	oslUncachePalette(img->palette);
 }
 
 const OSL_VIRTUALFILENAME __osl_logo_ram_files[] = {
-    {"ram:/logo/texte.png", (void *)__osl_logo_texte_data, sizeof(__osl_logo_texte_data), &VF_MEMORY},
-    {"ram:/logo/etoile.png", (void *)__osl_logo_etoile_data, sizeof(__osl_logo_etoile_data), &VF_MEMORY},
+	{"ram:/logo/texte.png", (void *)__osl_logo_texte_data, sizeof(__osl_logo_texte_data), &VF_MEMORY},
+	{"ram:/logo/etoile.png", (void *)__osl_logo_etoile_data, sizeof(__osl_logo_etoile_data), &VF_MEMORY},
 };
 
 /*
     Displays the OSLib logo splash screen.
     This function shows animated text and stars with different effects.
     Do not worry about fully understanding this function if you are a beginner :)
-*/
+ */
 int oslShowSplashScreen1() {
-    OSL_IMAGE *textImage, *starImage, *background;
-    int skip = 0;
-    int x, y, angle = 270, frame = 0, fade = 0, starCount = 0;
-    int imgAngle = 78, val;
-    float distance = 160.0f;
-    float starSpeeds[8] = {0.2, 0.3, 0.15, 0.2, 0.35, 0.2, 0.15, 0.3};
-    float starX[100], starY[100];
+	OSL_IMAGE *textImage, *starImage, *background;
+	int skip = 0;
+	int x, y, angle = 270, frame = 0, fade = 0, starCount = 0;
+	int imgAngle = 78, val;
+	float distance = 160.0f;
+	float starSpeeds[8] = {0.2, 0.3, 0.15, 0.2, 0.35, 0.2, 0.15, 0.3};
+	float starX[100], starY[100];
 
-    // Add virtual files for the logo
-    oslAddVirtualFileList((OSL_VIRTUALFILENAME*)__osl_logo_ram_files, oslNumberof(__osl_logo_ram_files));
+	// Add virtual files for the logo
+	oslAddVirtualFileList((OSL_VIRTUALFILENAME*)__osl_logo_ram_files, oslNumberof(__osl_logo_ram_files));
 
-    textImage = oslLoadImageFile("ram:/logo/texte.png", OSL_IN_VRAM | OSL_UNSWIZZLED, OSL_PF_8888);
-    if (!textImage) return 0;
+	textImage = oslLoadImageFile("ram:/logo/texte.png", OSL_IN_VRAM | OSL_UNSWIZZLED, OSL_PF_8888);
+	if (!textImage) return 0;
 
-    shiftLogoPixels(textImage);
+	shiftLogoPixels(textImage);
 
-    // Initialize drawing
-    oslStartDrawing();
-    oslSetDithering(1);
-    oslSetDrawBuffer(textImage);
-    oslDrawGradientRect(0, 0, WIDTH, HEIGHT, RGB(0, 0, 0), RGB(0, 0, 128), RGB(0, 0, 128), RGB(0, 0, 0));
-    oslSetDrawBuffer(OSL_DEFAULT_BUFFER);
-    oslEndDrawing();
+	// Initialize drawing
+	oslStartDrawing();
+	oslSetDithering(1);
+	oslSetDrawBuffer(textImage);
+	oslDrawGradientRect(0, 0, WIDTH, HEIGHT, RGB(0, 0, 0), RGB(0, 0, 128), RGB(0, 0, 128), RGB(0, 0, 0));
+	oslSetDrawBuffer(OSL_DEFAULT_BUFFER);
+	oslEndDrawing();
 
-    oslMoveImageTo(textImage, OSL_IN_RAM);
-    oslSwizzleImage(textImage);
+	oslMoveImageTo(textImage, OSL_IN_RAM);
+	oslSwizzleImage(textImage);
 
-    background = createLogoBackgroundImage();
-    if (!background) {
-        oslDeleteImage(textImage);
-        return 0;
-    }
+	background = createLogoBackgroundImage();
+	if (!background) {
+		oslDeleteImage(textImage);
+		return 0;
+	}
 
-    oslSetTransparentColor(RGB(255, 0, 254));
-    starImage = oslLoadImageFile("ram:/logo/etoile.png", OSL_IN_RAM, OSL_PF_5551);
-    if (!starImage) {
-        oslDeleteImage(textImage);
-        oslDeleteImage(background);
-        return 0;
-    }
-    oslDisableTransparentColor();
+	oslSetTransparentColor(RGB(255, 0, 254));
+	starImage = oslLoadImageFile("ram:/logo/etoile.png", OSL_IN_RAM, OSL_PF_5551);
+	if (!starImage) {
+		oslDeleteImage(textImage);
+		oslDeleteImage(background);
+		return 0;
+	}
+	oslDisableTransparentColor();
 
-    textImage->centerX = textImage->sizeX / 2;
-    textImage->centerY = textImage->sizeY / 2;
+	textImage->centerX = textImage->sizeX / 2;
+	textImage->centerY = textImage->sizeY / 2;
 
-    while (!osl_quit) {
-        if (!skip) {
-            oslStartDrawing();
+	while (!osl_quit) {
+		if (!skip) {
+			oslStartDrawing();
 
-            createRotatingPalette(background, 2000 - frame * 8);
-            oslDrawImage(background);
+			createRotatingPalette(background, 2000 - frame * 8);
+			oslDrawImage(background);
 
-            x = WIDTH / 2;
-            y = HEIGHT / 2;
+			x = WIDTH / 2;
+			y = HEIGHT / 2;
 
-            if (distance > 0) {
-                x += oslCos(angle, distance);
-                y -= oslSin(angle, distance);
-                textImage->stretchX = textImage->sizeX * (1 + distance * 0.03f);
-                textImage->stretchY = textImage->sizeY * (1 + distance * 0.03f);
-                textImage->angle = imgAngle;
-            } else {
-                textImage->stretchX = textImage->sizeX;
-                textImage->stretchY = textImage->sizeY;
-                textImage->angle = 0;
-            }
+			if (distance > 0) {
+				x += oslCos(angle, distance);
+				y -= oslSin(angle, distance);
+				textImage->stretchX = textImage->sizeX * (1 + distance * 0.03f);
+				textImage->stretchY = textImage->sizeY * (1 + distance * 0.03f);
+				textImage->angle = imgAngle;
+			} else {
+				textImage->stretchX = textImage->sizeX;
+				textImage->stretchY = textImage->sizeY;
+				textImage->angle = 0;
+			}
 
-            oslSetBilinearFilter(1);
+			oslSetBilinearFilter(1);
 
-            if (frame >= 50) {
-                val = MIN((frame - 50) * 6, 255);
-                oslSetAlpha(OSL_FX_ALPHA | OSL_FX_COLOR, RGBA(val, val, val, 0xff));
-            } else {
-                oslSetAlpha(OSL_FX_ALPHA | OSL_FX_COLOR, RGBA(0, 0, 0, 0xff));
-            }
+			if (frame >= 50) {
+				val = MIN((frame - 50) * 6, 255);
+				oslSetAlpha(OSL_FX_ALPHA | OSL_FX_COLOR, RGBA(val, val, val, 0xff));
+			} else {
+				oslSetAlpha(OSL_FX_ALPHA | OSL_FX_COLOR, RGBA(0, 0, 0, 0xff));
+			}
 
-            oslDrawImageXY(textImage, x, y);
+			oslDrawImageXY(textImage, x, y);
 
-            oslSetImageTileSize(starImage, 0, 0, 16, 16);
-            oslCorrectImageHalfBorder(starImage);
-            oslImageSetRotCenter(starImage);
-            starImage->angle = 360 - ((frame * 3) % 360);
-            starImage->stretchX = 16;
-            starImage->stretchY = 16;
-            oslSetAlpha(OSL_FX_ALPHA | OSL_FX_COLOR, RGBA(0xff, 0, 0, 0xff));
-            oslDrawImageXY(starImage, WIDTH - 9, HEIGHT - 9);
+			oslSetImageTileSize(starImage, 0, 0, 16, 16);
+			oslCorrectImageHalfBorder(starImage);
+			oslImageSetRotCenter(starImage);
+			starImage->angle = 360 - ((frame * 3) % 360);
+			starImage->stretchX = 16;
+			starImage->stretchY = 16;
+			oslSetAlpha(OSL_FX_ALPHA | OSL_FX_COLOR, RGBA(0xff, 0, 0, 0xff));
+			oslDrawImageXY(starImage, WIDTH - 9, HEIGHT - 9);
 
-            if (frame >= 140 && frame < 240) {
-                val = frame - 140;
-                angle = (val * 5) % 360;
-                int i = frame - (240 - 256 / 12);
-                if (val * 16 < 255) {
-                    oslSetAlpha(OSL_FX_ALPHA, val * 16);
-                } else if (i > 0) {
-                    oslSetAlpha(OSL_FX_ALPHA, 255 - i * 12);
-                } else {
-                    oslSetAlpha(OSL_FX_RGBA, 0);
-                }
+			if (frame >= 140 && frame < 240) {
+				val = frame - 140;
+				angle = (val * 5) % 360;
+				int i = frame - (240 - 256 / 12);
+				if (val * 16 < 255) {
+					oslSetAlpha(OSL_FX_ALPHA, val * 16);
+				} else if (i > 0) {
+					oslSetAlpha(OSL_FX_ALPHA, 255 - i * 12);
+				} else {
+					oslSetAlpha(OSL_FX_RGBA, 0);
+				}
 
-                starImage->angle = (val * 8) % 360;
-                starImage->x = WIDTH / 2 + oslCosi(angle, 120);
-                starImage->y = HEIGHT / 2 - oslSini(angle, 50);
-                starImage->stretchX = 16 * 2;
-                starImage->stretchY = 16 * 2;
-                oslDrawImage(starImage);
-                oslResetImageHalfBorder(starImage);
-            }
+				starImage->angle = (val * 8) % 360;
+				starImage->x = WIDTH / 2 + oslCosi(angle, 120);
+				starImage->y = HEIGHT / 2 - oslSini(angle, 50);
+				starImage->stretchX = 16 * 2;
+				starImage->stretchY = 16 * 2;
+				oslDrawImage(starImage);
+				oslResetImageHalfBorder(starImage);
+			}
 
-            oslSetBilinearFilter(0);
+			oslSetBilinearFilter(0);
 
-            // Draw falling stars
-            oslSetAlpha(OSL_FX_ADD, 0xff);
-            oslSetImageTileSize(starImage, 0, 16, 8, 8);
-            oslImageSetRotCenter(starImage);
+			// Draw falling stars
+			oslSetAlpha(OSL_FX_ADD, 0xff);
+			oslSetImageTileSize(starImage, 0, 16, 8, 8);
+			oslImageSetRotCenter(starImage);
 
-            for (int i = 0; i < starCount; i++) {
-                oslDrawImageSimpleXY(starImage, starX[i], starY[i]);
-            }
+			for (int i = 0; i < starCount; i++) {
+				oslDrawImageSimpleXY(starImage, starX[i], starY[i]);
+			}
 
-            oslSetAlpha(OSL_FX_RGBA, 0);
+			oslSetAlpha(OSL_FX_RGBA, 0);
 
-            // Fade effect
-            if (frame < 32) {
-                oslDrawFillRect(0, 0, WIDTH, HEIGHT, RGBA(0, 0, 0, 255 - (frame << 3)));
-            }
-            if (fade > 0) {
-                if (fade >= 31) fade = 31;
-                oslDrawFillRect(0, 0, WIDTH, HEIGHT, RGBA(0, 0, 0, (fade << 3)));
-            }
+			// Fade effect
+			if (frame < 32) {
+				oslDrawFillRect(0, 0, WIDTH, HEIGHT, RGBA(0, 0, 0, 255 - (frame << 3)));
+			}
+			if (fade > 0) {
+				if (fade >= 31) fade = 31;
+				oslDrawFillRect(0, 0, WIDTH, HEIGHT, RGBA(0, 0, 0, (fade << 3)));
+			}
 
-            oslEndDrawing();
-        }
+			oslEndDrawing();
+		}
 
-        frame++;
+		frame++;
 
-        // Star rotation around the logo
-        if (frame >= 140 && frame < 240) {
-            val = frame - 140;
-            angle = (val * 5) % 360;
+		// Star rotation around the logo
+		if (frame >= 140 && frame < 240) {
+			val = frame - 140;
+			angle = (val * 5) % 360;
 
-            if (angle >= 200 && angle <= 340) {
-                starX[starCount] = WIDTH / 2 + oslCos(angle, 120);
-                starY[starCount] = HEIGHT / 2 - oslSin(angle, 50);
-                starCount++;
-            }
-        }
+			if (angle >= 200 && angle <= 340) {
+				starX[starCount] = WIDTH / 2 + oslCos(angle, 120);
+				starY[starCount] = HEIGHT / 2 - oslSin(angle, 50);
+				starCount++;
+			}
+		}
 
-        if (fade > 0) {
+		if (fade > 0) {
 			fade++;
 		}
-        if (frame > 290 && fade == 0) {
+		if (frame > 290 && fade == 0) {
 			fade = 1;
 		}
 
-        for (int i = 0; i < starCount; i++) {
-            starY[i] += starSpeeds[i % 8];
-        }
+		for (int i = 0; i < starCount; i++) {
+			starY[i] += starSpeeds[i % 8];
+		}
 
-        distance -= 2.0f;
-        angle -= 4;
-        imgAngle -= 1;
-        if (angle < 0) {
+		distance -= 2.0f;
+		angle -= 4;
+		imgAngle -= 1;
+		if (angle < 0) {
 			angle += 360;
 		}
 
-        skip = oslSyncFrameEx(1, 4, 0);
-        oslReadKeys();
+		skip = oslSyncFrameEx(1, 4, 0);
+		oslReadKeys();
 
-        if ((osl_keys->pressed.value & (OSL_KEYMASK_START | OSL_KEYMASK_CIRCLE | OSL_KEYMASK_CROSS)) && fade == 0) {
-            fade = 1;
-        }
+		if ((osl_keys->pressed.value & (OSL_KEYMASK_START | OSL_KEYMASK_CIRCLE | OSL_KEYMASK_CROSS)) && fade == 0) {
+			fade = 1;
+		}
 
-        if (fade >= 32) break;
-    }
+		if (fade >= 32) break;
+	}
 
-    oslSetAlpha(OSL_FX_RGBA, 0);
-    oslDeleteImage(textImage);
-    oslDeleteImage(background);
-    oslDeleteImage(starImage);
+	oslSetAlpha(OSL_FX_RGBA, 0);
+	oslDeleteImage(textImage);
+	oslDeleteImage(background);
+	oslDeleteImage(starImage);
 
 	oslRemoveVirtualFileList((OSL_VIRTUALFILENAME*)__osl_logo_ram_files, oslNumberof(__osl_logo_ram_files));
-    return 1;
+	return 1;
 }

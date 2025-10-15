@@ -237,7 +237,7 @@ OSL_SOUND *oslLoadSoundFileBGM(const char *filename, int stream) {
 	s->numSamples = 0;
 	s->format = bfh.format;
 	s->divider = (bfh.sampleRate == 44100) ? OSL_FMT_44K :
-				 (bfh.sampleRate == 22050) ? OSL_FMT_22K : OSL_FMT_11K;
+	             (bfh.sampleRate == 22050) ? OSL_FMT_22K : OSL_FMT_11K;
 	s->size = end_offset - start_offset;
 	s->mono = 0x10;  // Mono audio format
 	s->volumeLeft = s->volumeRight = OSL_VOLUME_MAX;
