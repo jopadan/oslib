@@ -19,7 +19,7 @@ add_library(${TARGET_LIB} STATIC)
 
 # Specify the output directory for the .a file (project root directory)
 set_target_properties(${TARGET_LIB} PROPERTIES
-	ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
 
 # Include directories
@@ -33,7 +33,9 @@ include_directories(
 
 # Define the source files
 set(SOURCE_DIR src)
-set(SFONT_SOURCES ${SOURCE_DIR}/sfont.c)
+set(SFONT_SOURCES
+    ${SOURCE_DIR}/sfont.c
+)
 set(PSPMATH_SOURCES
     lib/libpspmath/src/printMatrixFloat.c
     lib/libpspmath/src/vfpu_srand.c
@@ -80,7 +82,6 @@ set(PSPMATH_SOURCES
     lib/libpspmath/src/vfpu_quaternion_sample_hermite.c
     lib/libpspmath/src/vfpu_quaternion_hermite_tangent.c
 )
-
 set(GIFLIB_SOURCES
     lib/giflib/gif2rgb.c
     lib/giflib/dgif_lib.c
@@ -89,12 +90,10 @@ set(GIFLIB_SOURCES
     lib/giflib/gifalloc.c
     lib/giflib/quantize.c
 )
-
 set(INTRAFONT_SOURCES
     lib/libintraFont/src/intraFont.c
     lib/libintraFont/src/libccc.c
 )
-
 set(LIB_SOURCES
     ${SOURCE_DIR}/adhoc/pspadhoc.c
     ${SOURCE_DIR}/audio/audio.c
@@ -150,31 +149,57 @@ set(LIB_SOURCES
 set_source_files_properties(${SOURCE_DIR}/stub.S PROPERTIES LANGUAGE ASM)
 
 # Add sources to the target
-target_sources(${TARGET_LIB} PRIVATE ${SFONT_SOURCES} ${PSPMATH_SOURCES} ${GIFLIB_SOURCES} ${INTRAFONT_SOURCES} ${LIB_SOURCES})
+target_sources(${TARGET_LIB} PRIVATE
+    ${SFONT_SOURCES}
+    ${PSPMATH_SOURCES}
+    ${GIFLIB_SOURCES}
+    ${INTRAFONT_SOURCES}
+    ${LIB_SOURCES}
+)
 
 # Installation instructions
 install(TARGETS ${TARGET_LIB} DESTINATION ${PSPDIR}/lib)
 
 # Include directories installation (headers)
-install(FILES lib/libintraFont/include/intraFont.h lib/libintraFont/include/libccc.h
-	DESTINATION ${PSPDIR}/include/oslib)
-
-install(FILES lib/libpspmath/include/pspmath.h
-	DESTINATION ${PSPDIR}/include/oslib)
-
-install(FILES ${SOURCE_DIR}/adhoc/pspadhoc.h
-    DESTINATION ${PSPDIR}/include/oslib/adhoc)
-
-install(FILES ${SOURCE_DIR}/oslmath.h ${SOURCE_DIR}/net.h ${SOURCE_DIR}/browser.h ${SOURCE_DIR}/audio.h
-    ${SOURCE_DIR}/bgm.h ${SOURCE_DIR}/dialog.h ${SOURCE_DIR}/drawing.h ${SOURCE_DIR}/keys.h
-    ${SOURCE_DIR}/map.h ${SOURCE_DIR}/messagebox.h ${SOURCE_DIR}/osk.h ${SOURCE_DIR}/saveload.h
-    ${SOURCE_DIR}/oslib.h ${SOURCE_DIR}/text.h ${SOURCE_DIR}/usb.h ${SOURCE_DIR}/vfpu_ops.h
-    ${SOURCE_DIR}/VirtualFile.h ${SOURCE_DIR}/vram_mgr.h ${SOURCE_DIR}/ccc.h ${SOURCE_DIR}/sfont.h
-    DESTINATION ${PSPDIR}/include/oslib)
+install(FILES
+    lib/libintraFont/include/intraFont.h
+    lib/libintraFont/include/libccc.h
+    DESTINATION ${PSPDIR}/include/oslib
+)
+install(FILES
+    lib/libpspmath/include/pspmath.h
+    DESTINATION ${PSPDIR}/include/oslib
+)
+install(FILES
+    ${SOURCE_DIR}/adhoc/pspadhoc.h
+    DESTINATION ${PSPDIR}/include/oslib/adhoc
+)
+install(FILES
+    ${SOURCE_DIR}/oslmath.h
+    ${SOURCE_DIR}/net.h
+    ${SOURCE_DIR}/browser.h
+    ${SOURCE_DIR}/audio.h
+    ${SOURCE_DIR}/bgm.h
+    ${SOURCE_DIR}/dialog.h
+    ${SOURCE_DIR}/drawing.h
+    ${SOURCE_DIR}/keys.h
+    ${SOURCE_DIR}/map.h
+    ${SOURCE_DIR}/messagebox.h
+    ${SOURCE_DIR}/osk.h
+    ${SOURCE_DIR}/saveload.h
+    ${SOURCE_DIR}/oslib.h
+    ${SOURCE_DIR}/text.h
+    ${SOURCE_DIR}/usb.h
+    ${SOURCE_DIR}/vfpu_ops.h
+    ${SOURCE_DIR}/VirtualFile.h
+    ${SOURCE_DIR}/vram_mgr.h
+    ${SOURCE_DIR}/ccc.h
+    ${SOURCE_DIR}/sfont.h
+    DESTINATION ${PSPDIR}/include/oslib
+)
 
 # Add Cppcheck execution
 find_program(CPPCHECK cppcheck)
-
 if(CPPCHECK)
     set(CPPCHECK_COMMAND
         ${CPPCHECK} --enable=all --inconclusive --quiet
@@ -191,7 +216,6 @@ endif()
 
 # Add Uncrustify execution
 find_program(UNCRUSTIFY uncrustify)
-
 if(UNCRUSTIFY)
     set(UNCRUSTIFY_COMMAND ${UNCRUSTIFY} -c ${CMAKE_SOURCE_DIR}/uncrustify.cfg --no-backup)
     add_custom_target(
