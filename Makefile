@@ -78,14 +78,6 @@ INTRAFONTOBJS := \
 	$(LIB_DIR)/libintraFont/src/intraFont.o \
 	$(LIB_DIR)/libintraFont/src/libccc.o
 
-GIFLIBOBJS := \
-	$(LIB_DIR)/giflib/gif2rgb.o \
-	$(LIB_DIR)/giflib/dgif_lib.o \
-	$(LIB_DIR)/giflib/egif_lib.o \
-	$(LIB_DIR)/giflib/gif_err.o \
-	$(LIB_DIR)/giflib/gifalloc.o \
-	$(LIB_DIR)/giflib/quantize.o
-
 LIBOBJS := \
 	$(SFONTOBJS) \
 	$(PSPMATHOBJS) \
@@ -147,7 +139,6 @@ OBJS := $(LIBOBJS) $(INTRAFONTOBJS) $(GIFLIBOBJS)
 INCDIR := $(INCDIR) \
 	$(SOURCE_DIR) \
 	$(LIB_DIR)/libintraFont/include \
-	$(LIB_DIR)/giflib \
 	$(LIB_DIR)/libpspmath/include
 
 #----------------------------------------------------------------------------
@@ -168,7 +159,7 @@ SDK_LIBS := \
 	-lpspnet_adhoc -lpspnet_adhocctl -lpspnet_adhocmatching
 
 EXTERN_LIBS := \
-	-lpng -ljpeg \
+	-lpng -ljpeg -lgif \
 	-lz
 
 LIBS := $(EXTERN_LIBS) $(SDK_LIBS) -lm
@@ -189,7 +180,7 @@ DEFINES := \
 #   Compiler settings
 #   -----------------
 
-CFLAGS   := $(DEFINES) -O2 -G0 -ggdb -Wall -Wno-unused -DHAVE_AV_CONFIG_H -fno-strict-aliasing -fverbose-asm
+CFLAGS   := $(DEFINES) -O2 -G0 -ggdb -Wall -DHAVE_AV_CONFIG_H -fno-strict-aliasing -fverbose-asm
 CXXFLAGS := $(CFLAGS) -fno-exceptions -fno-rtti
 ASFLAGS  := $(CFLAGS)
 
@@ -287,10 +278,6 @@ ghpages: gendoc
 
 # libpspmath objects
 $(PSPMATHOBJS): %.o: %.c
-	$(CC) $(CFLAGS_THIRD_PARTY) $(addprefix -I,$(INCDIR)) -c $< -o $@
-
-# giflib objects
-$(GIFLIBOBJS): %.o: %.c
 	$(CC) $(CFLAGS_THIRD_PARTY) $(addprefix -I,$(INCDIR)) -c $< -o $@
 
 # libintraFont objects
