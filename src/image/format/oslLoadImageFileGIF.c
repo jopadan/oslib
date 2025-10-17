@@ -1,4 +1,5 @@
 #include "oslib.h"
+#ifdef OSL_IMAGE_LOADER_GIF
 #include "gif_lib.h"
 
 /*
@@ -180,3 +181,4 @@ OSL_IMAGE *oslLoadImageFileGIF(char *filename, int location, int pixelFormat)
 
 	return img;
 }
+#endif

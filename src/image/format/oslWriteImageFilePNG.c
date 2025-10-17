@@ -4,9 +4,12 @@
 #include <zlib.h>
 #include <zconf.h>
 
-void oslPngFlushFn(png_structp png_ptr);
+static void oslPngFlushFn(png_structp png_ptr) {
+	(void)png_ptr; // Suppress unused parameter warning
+	// No operation
+}
 
-void oslPngWriteFn(png_structp png_ptr, png_bytep data, png_size_t length) {
+static void oslPngWriteFn(png_structp png_ptr, png_bytep data, png_size_t length) {
 	VIRTUAL_FILE *f = (VIRTUAL_FILE*)png_get_io_ptr(png_ptr);
 	VirtualFileWrite(data, length, 1, f);
 }

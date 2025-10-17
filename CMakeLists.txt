@@ -26,14 +26,12 @@ set_target_properties(${TARGET_LIB} PROPERTIES
 include_directories(
     INTERFACE PUBLIC_HEADER  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/lib/libintraFont/include>
     INTERFACE PUBLIC_HEADER  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/lib/libpspmath/include>
-    INTERFACE PRIVATE_HEADER $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/lib/giflib>
     src
     src/adhoc
 )
 
 # Treat third-party library directories as system includes to suppress warnings
 include_directories(SYSTEM
-    ${PROJECT_SOURCE_DIR}/lib/giflib
     ${PROJECT_SOURCE_DIR}/lib/libintraFont/include
     ${PROJECT_SOURCE_DIR}/lib/libpspmath/include
 )
@@ -88,14 +86,6 @@ set(PSPMATH_SOURCES
     lib/libpspmath/src/vfpu_quaternion_to_matrix.c
     lib/libpspmath/src/vfpu_quaternion_sample_hermite.c
     lib/libpspmath/src/vfpu_quaternion_hermite_tangent.c
-)
-set(GIFLIB_SOURCES
-    lib/giflib/gif2rgb.c
-    lib/giflib/dgif_lib.c
-    lib/giflib/egif_lib.c
-    lib/giflib/gif_err.c
-    lib/giflib/gifalloc.c
-    lib/giflib/quantize.c
 )
 set(INTRAFONT_SOURCES
     lib/libintraFont/src/intraFont.c
@@ -156,7 +146,6 @@ set_source_files_properties(${SOURCE_DIR}/stub.S PROPERTIES LANGUAGE ASM)
 # Suppress warnings for third-party library sources
 set_source_files_properties(
     ${PSPMATH_SOURCES}
-    ${GIFLIB_SOURCES}
     ${INTRAFONT_SOURCES}
     PROPERTIES
     COMPILE_FLAGS "-w"
@@ -166,7 +155,6 @@ set_source_files_properties(
 target_sources(${TARGET_LIB} PRIVATE
     ${SFONT_SOURCES}
     ${PSPMATH_SOURCES}
-    ${GIFLIB_SOURCES}
     ${INTRAFONT_SOURCES}
     ${LIB_SOURCES}
 )

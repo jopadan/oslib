@@ -123,12 +123,12 @@ LIBOBJS := \
 	$(SOURCE_DIR)/image/format/oslLoadImageFilePNG.o \
 	$(SOURCE_DIR)/image/format/oslWriteImageFilePNG.o \
 	$(SOURCE_DIR)/image/format/oslLoadImageFileJPEG.o \
-	$(SOURCE_DIR)/image/format/oslLoadImageFileGIF.o \
 	$(SOURCE_DIR)/image/oslLoadImageFile.o \
 	$(SOURCE_DIR)/image/oslWriteImageFile.o \
 	$(SOURCE_DIR)/splash/oslShowSplashScreen1.o \
 	$(SOURCE_DIR)/splash/oslShowSplashScreen2.o \
 	$(SOURCE_DIR)/mem/oslGetRamStatus.o
+#	$(SOURCE_DIR)/image/format/oslLoadImageFileGIF.o
 
 OBJS := $(LIBOBJS) $(INTRAFONTOBJS) $(GIFLIBOBJS)
 
@@ -159,7 +159,7 @@ SDK_LIBS := \
 	-lpspnet_adhoc -lpspnet_adhocctl -lpspnet_adhocmatching
 
 EXTERN_LIBS := \
-	-lpng -ljpeg -lgif \
+	-lpng -ljpeg \
 	-lz
 
 LIBS := $(EXTERN_LIBS) $(SDK_LIBS) -lm
@@ -173,8 +173,8 @@ DEFINES := \
 	-DPSP \
 	-DOSL_IMAGE_LOADER_PNG \
 	-DOSL_IMAGE_LOADER_JPEG \
-	-DOSL_IMAGE_LOADER_GIF \
 	-DOSL_IMAGE_WRITER_PNG
+#	-DOSL_IMAGE_LOADER_GIF
 
 #----------------------------------------------------------------------------
 #   Compiler settings
