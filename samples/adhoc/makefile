@@ -5,13 +5,13 @@ OBJS = main.o
 BUILD_PRX = 1
 PSP_FW_VERSION=371
 
-CFLAGS = -O2 -g -G0 -Wall
+CFLAGS = -O2 -g -G0 -Wall -DOSL_IMAGE_LOADER_PNG -DOSL_IMAGE_WRITER_PNG -DOSL_IMAGE_LOADER_JPEG -DOSL_IMAGE_LOADER_GIF
 CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
 ASFLAGS = $(CFLAGS)
 LIBDIR =
 
 MYLIBS= -lpspnet_adhocmatching -lpspnet_adhoc -lpspnet_adhocctl
-STDLIBS= -losl -lpng -lz \
+STDLIBS= -lm -losl -lpng -ljpeg -lgif -lz \
          -lpsphprm -lpspsdk -lpspctrl -lpspumd -lpsprtc -lpsppower -lpspgu -lpspgum -lpspaudiolib -lpspaudio -lpsphttp -lpspssl -lpspwlan -lm
 LIBS=$(STDLIBS) $(MYLIBS)
 
