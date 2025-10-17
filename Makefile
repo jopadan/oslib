@@ -189,7 +189,7 @@ DEFINES := \
 #   Compiler settings
 #   -----------------
 
-CFLAGS   := $(DEFINES) -O2 -G0 -ggdb -Wall -DHAVE_AV_CONFIG_H -fno-strict-aliasing -fverbose-asm
+CFLAGS   := $(DEFINES) -O2 -G0 -ggdb -Wall -Wno-unused -DHAVE_AV_CONFIG_H -fno-strict-aliasing -fverbose-asm
 CXXFLAGS := $(CFLAGS) -fno-exceptions -fno-rtti
 ASFLAGS  := $(CFLAGS)
 

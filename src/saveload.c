@@ -10,7 +10,7 @@
 
 SceUtilitySavedataParam savedata;
 PspUtilitySavedataListSaveNewData newData;
-char key[] = "QTAK319JQKJ952HA";
+__attribute__((nonstring)) char key[] = "QTAK319JQKJ952HA";
 int saveLoadType = OSL_DIALOG_NONE;
 
 void oslInitSaveDialog(struct oslSaveLoad *saveData){
