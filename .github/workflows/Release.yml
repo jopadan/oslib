@@ -48,8 +48,8 @@ jobs:
           OS_NAME="${{ matrix.os[0] }}"
           ARCH_NAME="${{ matrix.os[1] }}"
           RELEASE_NAME="oslib-${TAG_NAME}-${OS_NAME}-${ARCH_NAME}"
-          tar -czf "dist/${RELEASE_NAME}.tar.gz" -C dist .
-          echo "file=dist/${RELEASE_NAME}.tar.gz" >> $GITHUB_OUTPUT
+          tar -czf "${RELEASE_NAME}.tar.gz" -C dist .
+          echo "file=${RELEASE_NAME}.tar.gz" >> $GITHUB_OUTPUT
 
       - name: Publish release on GitHub Releases
         uses: softprops/action-gh-release@v1
