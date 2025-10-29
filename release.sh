@@ -48,7 +48,7 @@ cp -f $SOURCE_DIR/sfont.h $TARGET/Install/oslib/
 
 echo "Copying other files...."
 cp -f README.md $TARGET
-cp -f CHANGELOG.TXT $TARGET
+cp -f CHANGELOG.md $TARGET
 cp -f install.bat $TARGET
 cp -f install.sh $TARGET
 

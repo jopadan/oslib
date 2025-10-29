@@ -269,7 +269,7 @@ release: lib
 ghpages: gendoc
 	rm -rf /tmp/ghpages
 	mkdir -p /tmp/ghpages
-	cp -Rv OSLib_Documentation/html/* /tmp/ghpages
+	cp -Rv doc/html/* /tmp/ghpages
 	cd /tmp/ghpages && \
 		git init && \
 		git config user.name "$${GIT_AUTHOR_NAME:-github-actions}" && \

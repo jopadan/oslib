@@ -51,7 +51,7 @@ xcopy %SOURCE_DIR%\sfont.h %TARGET%\Install\oslib\
 
 echo "xcopying other files...."
 xcopy README.md %TARGET%
-xcopy CHANGELOG.TXT %TARGET%
+xcopy CHANGELOG.md %TARGET%
 xcopy install.bat %TARGET%
 xcopy install.sh %TARGET%
 
