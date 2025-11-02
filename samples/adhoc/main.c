@@ -174,13 +174,13 @@ void serverConnected(struct remotePsp *aPsp)
 		else if (osl_keys->released.circle && dataLength > 0)
 		{
 			dataLength = 0;
-			memset(buffer, sizeof(buffer), 0);
+			memset(buffer, 0, sizeof(buffer));
 		}
 	}
 }
 
 
-//Waits for a connection from a psp:
+// Waits for a connection from a psp:
 void doServer()
 {
     int skip = 0;
@@ -213,7 +213,14 @@ void doServer()
 			}
 			else
 			{
-				snprintf(message, sizeof(message), "Accept request from psp : %s", reqPsp->name);
+				const char *prefix = "Accept request from psp : ";
+				size_t prefix_len = strlen(prefix);
+				/* Reserve 1 byte for terminating NULL */
+				int max_name_len = 0;
+				if (sizeof(message) > prefix_len + 1)
+					max_name_len = (int)(sizeof(message) - prefix_len - 1);
+				snprintf(message, sizeof(message), "%s%.*s", prefix, max_name_len, reqPsp->name);
+
 				oslDrawString(10, 100, message);
 				if (oslGetDialogType() == OSL_DIALOG_NONE)
 					oslInitMessageDialog(message, 1);
