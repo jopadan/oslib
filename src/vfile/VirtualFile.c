@@ -90,11 +90,11 @@ int vfsMemOpen(void *param1, int param2, int type, int mode, VIRTUAL_FILE* f) {
 }
 
 int vfsMemClose(VIRTUAL_FILE *f) {
-    // Memory-based files don't need cleanup
-    // The memory pointed to by f->ioPtr is managed externally
-    // The VIRTUAL_FILE structure itself is freed by VirtualFileClose()
-    (void)f; // Suppress unused parameter warning
-    return 1;
+	// Memory-based files don't need cleanup
+	// The memory pointed to by f->ioPtr is managed externally
+	// The VIRTUAL_FILE structure itself is freed by VirtualFileClose()
+	(void)f; // Suppress unused parameter warning
+	return 1;
 }
 
 int vfsMemWrite(const void *ptr, size_t size, size_t n, VIRTUAL_FILE* f) {
