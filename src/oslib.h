@@ -645,22 +645,24 @@ extern void oslSetupFTrigo();
 #ifdef PSP
 /** @brief Prints formatted text to the current position of the cursor.
  *
- * This macro uses a format string similar to printf.
- *
- * @param format Formatted text.
+ * This macro uses a printf-style format string. The formatted output will be
+ * written to an internal buffer and printed to the debug console.
  */
-    #define oslPrintf(format ...) ({ char __str[1000]; sprintf(__str, ## format); oslConsolePrint(__str); })
+	 #define oslPrintf(format ...) ({ char __str[1000]; sprintf(__str, ## format); oslConsolePrint(__str); })
 
 /** @brief Prints formatted text at a specific position on the screen.
  *
  * This macro prints formatted text at the specified screen coordinates.
+ * It accepts a printf-style format and arguments. Example:
+ * @code
+ * oslPrintf_xy(0, 0, "%s: %d", "Value", 42);
+ * @endcode
  *
  * @param x X-coordinate (in characters).
  * @param y Y-coordinate (in characters).
- * @param str Formatted string.
- * @param format Additional formatted text.
+ * @param str The format string (printf-style) or literal string.
  */
-    #define oslPrintf_xy(x, y, str, format ...) ({ osl_consolePosX = x; osl_consolePosY = y; oslPrintf(str, ## format); })
+	 #define oslPrintf_xy(x, y, str, format ...) ({ osl_consolePosX = x; osl_consolePosY = y; oslPrintf(str, ## format); })
 #else
     #define oslPrintf(...) { char __str[1000]; sprintf(__str, __VA_ARGS__); oslConsolePrint(__str); }
     #define oslPrintf_xy(x, y, ...) { osl_consolePosX = x; osl_consolePosY = y; oslPrintf(__VA_ARGS__); }

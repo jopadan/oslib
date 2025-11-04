@@ -2415,8 +2415,9 @@ static inline void oslSetImageFrameSize(OSL_IMAGE *img, u16 width, u16 height)
                 oslDrawImage(img);
         }
 
-        // Alternative method using a macro
- #define DrawImageFrame(img, frame) ({ oslSetImageFrame(img, frame); oslDrawImage(img); })
+         // Alternative method using a macro
+ \#define DrawImageFrame(img, frame) ({ oslSetImageFrame(img, frame); oslDrawImage(img); })
+
 
         // Inline function for specific frame drawing
         extern inline void DrawImageFrame(OSL_IMAGE *img, int frame) {
@@ -2722,10 +2723,10 @@ extern void oslSetImagePixel(OSL_IMAGE *img, unsigned int x, unsigned int y, int
         // Get a pointer to the 4th line (0-based index)
         u16 *data = (u16*)oslGetImageLine(img, 3);
 
-        // Loop through each pixel in the line
+                // Loop through each pixel in the line
         for (int i = 0; i < img->sizeX; i++) {
                 // Set this pixel to bright red
- * data = RGBA15(255, 0, 0, 255);
+                (*data) = RGBA15(255, 0, 0, 255);
                 // Move to the next pixel
                 data++;
         }
@@ -2761,19 +2762,19 @@ extern void oslSetImagePixel(OSL_IMAGE *img, unsigned int x, unsigned int y, int
                 // Handle 4-bit images by checking if x is even or odd
                 if (x & 1) {
                         // Mask out the last 4 bits
- * data &= 0x0f;
+                        (*data) &= 0x0f;
                         // Write to the last 4 bits
- * data |= value << 4;
+                        (*data) |= value << 4;
                 } else {
                         // Mask out the first 4 bits
- * data &= 0xf0;
+                        (*data) &= 0xf0;
                         // Write to the first 4 bits
- * data |= value;
+                        (*data) |= value;
                 }
 
-                // Alternative method with parity checking
- * data &= ~(15 << ((x & 1) << 2));
- * data |= value << ((x & 1) << 2);
+                 // Alternative method with parity checking
+                (*data) &= ~(15 << ((x & 1) << 2));
+                (*data) |= value << ((x & 1) << 2);
         }
         \endcode
 
@@ -3278,8 +3279,6 @@ extern int osl_currentTexWrapV;
  * - **Clamp**: The same pixel will be repeated indefinitely.
  * - **Repeat**: The image texture will be tiled.
  *
- * @param u The wrapping mode for the U coordinate.
- * @param v The wrapping mode for the V coordinate.
  *
  * @param u
  *   - `OSL_TW_CLAMP`: Clamps the texture (repeats the edge pixel).
