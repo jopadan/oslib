@@ -84,6 +84,7 @@ void HandleKeys()
 			oslStopSound(bgm);  // Stop BGM
 		}
 		if (osl_keys->pressed.circle) {
+			oslStopSound(bgm);     // Ensures the channel is free
 			oslPlaySound(bgm, 0);  // Play/Resume BGM
 		}
 	}
@@ -114,7 +115,14 @@ void RenderText()
 	if (bgm) {
 		int channel = oslGetSoundChannel(bgm);
 		if (channel >= 0) {
-			oslPrintf_xy(10, 150, "Status: Playing (Channel %d)", channel);
+			extern volatile int osl_audioActive[];
+			if (osl_audioActive[channel] == 2) {
+				oslPrintf_xy(10, 150, "Status: Paused (Channel %d)", channel);
+			} else if (osl_audioActive[channel] == 1) {
+				oslPrintf_xy(10, 150, "Status: Playing (Channel %d)", channel);
+			} else {
+				oslPrintf_xy(10, 150, "Status: Stopped");
+			}
 		} else {
 			oslPrintf_xy(10, 150, "Status: Stopped");
 		}
@@ -132,4 +140,3 @@ void CleanupResources()
 		oslDeleteImage(bkg);
 	}
 }
-
